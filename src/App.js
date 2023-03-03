@@ -1,13 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import axios from 'axios';
+// 外部套件放在最上層
+
+// 下方放入引入檔案
+import logo from './assets/logo.svg';
+import './assets/App.css';
+import Input from './components/Input';
+import './assets/all.scss'
+
 
 function App() {
+  const [text, setText] = useState('')
+
+  const onChangeHandle = (e) => {
+    setText(e.target.value);
+  };
+
+  useEffect(() => {
+    ( async() => {
+      const path = process.env.REACT_APP_PATH
+      const result = await axios.get(path)
+      console.log(result);
+    })()
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, quos cum. Aliquid aperiam tempora, expedita doloremque pariatur excepturi esse delectus. Molestiae voluptatem, magnam sit nesciunt repellendus necessitatibus cum error et.
         </p>
         <a
           className="App-link"
@@ -17,6 +39,9 @@ function App() {
         >
           Learn React
         </a>
+        <button type="button" className="btn btn-primary">Primary</button>
+        {text}
+        <Input id='input' text='這是一個 Input' value={text} onChangeHandle={onChangeHandle}></Input>
       </header>
     </div>
   );
